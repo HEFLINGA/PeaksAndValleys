@@ -38,7 +38,7 @@ namespace PeaksAndValleys
             double threshold = 1.00;
 
             DataPoints = ReadCSVFile(startIndex, csvFilePath);
-            PeaksAndValleys = Calculate.GetPeaks(DataPoints, threshold);
+            PeaksAndValleys = Helper.GetPeaks(DataPoints, threshold);
             PeakPoints = PeaksAndValleys[0];
             ValleyPoints = PeaksAndValleys[1];
             DataContext = this;

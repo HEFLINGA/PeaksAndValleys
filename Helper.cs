@@ -8,6 +8,9 @@ namespace PeaksAndValleys
 {
     public static class Calculate
     {
+
+
+
         /// <summary>
         /// Takes in a list of DataPoints, loops through them, and returns a new List of DataPoints lists. Index 0 is a list of Peaks locations, and Index 1 is the Valleys list of locations.
         /// </summary>
