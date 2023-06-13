@@ -1,15 +1,48 @@
-﻿using System;
+﻿using CsvHelper;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PeaksAndValleys
 {
-    public static class Calculate
+    public static class Helper
     {
+        /// <summary>
+        /// Using CSVHelper, read in a CSV file and return a list of DataPoints (containing an index, X coord, and Y coord).
+        /// </summary>
+        /// <param name="startIndex">Start index coorisponding to the index of the first set of coordinate values within the csv file.</param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static List<DataPoint> ReadCSVFile(int startIndex, string filePath)
+        {
+            using (var reader = new StreamReader(filePath))
+            using (var csv = new CsvReader(reader, System.Globalization.CultureInfo.CreateSpecificCulture("")))
+            {
+                var data = new List<DataPoint>();
+                // Remove the beginning data that does not coorispond to any data points
+                for (int i = 0; i < startIndex; i++)
+                {
+                    csv.Read();
+                }
 
+                // Set the data-start index for tracking indices for quickly finding where each value is located. NOTE: When viewing in Exel, the data will be at index+1 because it starts at index 1, not 0.
+                int index = startIndex;
+                while (csv.Read())
+                {
+                    var x = csv.GetField<double>(0);
+                    var y = csv.GetField<double>(1);
+                    var point = new DataPoint(index, x, y);
+                    data.Add(point);
 
+                    index++;
+                }
+
+                return data;
+            }
+        }
 
         /// <summary>
         /// Takes in a list of DataPoints, loops through them, and returns a new List of DataPoints lists. Index 0 is a list of Peaks locations, and Index 1 is the Valleys list of locations.
@@ -17,7 +50,7 @@ namespace PeaksAndValleys
         /// <param name="dataPoints">List of DataPoint coordinates.</param>
         /// <param name="threshold">A threshold used to add to or take away from a current point, to check if a current potential valley or peak is a true valley/peak in the particular dataset.</param>
         /// <returns>A List of Lists of DataPoints, Index 0 being the list of Peak locations, and Index 1 being the list of Valley locations.</returns>
-        public static List<List<DataPoint>> GetPeaks(List<DataPoint> dataPoints, double threshold)
+        public static List<List<DataPoint>> GetPeaksAndValleys(List<DataPoint> dataPoints, double threshold)
         {
             // Create a list of lists, as well as list of DataPoints for peaks and valleys.
             // Add in the first point from the dataPoints list as a temp valley for thresholding.
