@@ -1,0 +1,93 @@
+﻿<Window x:Class="PeaksAndValleys.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PeaksAndValleys"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1080">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="15"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="1" Grid.Row="1" Margin="20, 20, 20, 20">
+            <TextBlock Text="All Data: "/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="2" MaxHeight="550">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ListBox HorizontalContentAlignment="Left" ItemsSource="{Binding DataPoints}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="Index: " />
+                                <Run Text="{Binding Index}" />
+                                <Run Text="X: " />
+                                <Run Text="{Binding X}" />
+                                <Run Text=", Y: " />
+                                <Run Text="{Binding Y}" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid Grid.Column="2" Grid.Row="1" Margin="20, 20, 20, 20">
+            <TextBlock Text="Peak Locations: "/>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="2" MaxHeight="550">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ListBox HorizontalContentAlignment="Left" ItemsSource="{Binding PeakPoints}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="Index: " />
+                                <Run Text="{Binding Index}" />
+                                <Run Text="X: " />
+                                <Run Text="{Binding X}" />
+                                <Run Text=", Y: " />
+                                <Run Text="{Binding Y}" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid Grid.Column="3" Grid.Row="1"  Margin="20, 20, 20, 20">
+            <TextBlock Text="Valley Locations: "/>
+        </Grid>
+        <Grid Grid.Column="3" Grid.Row="2" MaxHeight="550">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ListBox HorizontalContentAlignment="Left" ItemsSource="{Binding ValleyPoints}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="Index: " />
+                                <Run Text="{Binding Index}" />
+                                <Run Text="X: " />
+                                <Run Text="{Binding X}" />
+                                <Run Text=", Y: " />
+                                <Run Text="{Binding Y}" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>
